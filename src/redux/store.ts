@@ -1,0 +1,24 @@
+// Redux store configuration
+// Student Index: 225024
+
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './slices/authSlice';
+import sportsReducer from './slices/sportsSlice';
+import favouritesReducer from './slices/favouritesSlice';
+import themeReducer from './slices/themeSlice';
+
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    sports: sportsReducer,
+    favourites: favouritesReducer,
+    theme: themeReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
