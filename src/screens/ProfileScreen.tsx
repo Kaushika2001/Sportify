@@ -81,9 +81,6 @@ const ProfileScreen = () => {
             <Text style={[styles.email, { color: theme.colors.textSecondary }]}>
               {user?.email || 'email@example.com'}
             </Text>
-            <Text style={[styles.index, { color: theme.colors.primary }]}>
-              Index: 225024
-            </Text>
           </View>
         </View>
 
