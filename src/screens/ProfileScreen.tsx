@@ -26,22 +26,21 @@ const ProfileScreen = () => {
   const favouritesCount = useSelector((state: RootState) => state.favourites.items.length);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
-  const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            await storageService.removeUser();
-            dispatch(logout());
-          },
-        },
-      ]
-    );
+  const handleLogout = async () => {
+    console.log('Logout button pressed');
+    
+    try {
+      console.log('Logging out...');
+      // Clear storage
+      await storageService.removeUser();
+      console.log('User removed from storage');
+      // Dispatch logout action
+      dispatch(logout());
+      console.log('Logout action dispatched');
+    } catch (error) {
+      console.error('Error during logout:', error);
+      Alert.alert('Error', 'Failed to logout. Please try again.');
+    }
   };
 
   const handleClearFavourites = () => {
@@ -94,7 +93,7 @@ const ProfileScreen = () => {
           <View style={styles.settingRow}>
             <Text style={[styles.settingText, { color: theme.colors.text }]}>Dark Mode</Text>
             <Switch
-              value={isDarkMode}
+              value={Boolean(isDarkMode)}
               onValueChange={handleToggleTheme}
               trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
               thumbColor="#FFFFFF"

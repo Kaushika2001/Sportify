@@ -1,6 +1,7 @@
 # 🎉 Sportify App - Project Complete!
 
 ## Student Index: 225024
+
 ## Domain: Sports & Lifestyle (Last digit 4)
 
 ---
@@ -16,6 +17,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 ### Complete Feature List
 
 #### 1. ✅ User Authentication (15 marks)
+
 - Login screen with email and password
 - Registration screen with full name, username, email, password, and confirm password
 - Form validation using custom validators
@@ -24,6 +26,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - User data stored securely
 
 #### 2. ✅ Navigation Implementation (10 marks)
+
 - Stack Navigator for authentication flow (Login → Register)
 - Bottom Tab Navigator with 3 tabs: Home, Favourites, Profile
 - Stack Navigator for Details screen
@@ -31,6 +34,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - User's username displayed in header
 
 #### 3. ✅ API Integration & Data Display (15 marks)
+
 - TheSportsDB API integration for sports and leagues
 - Card-based list view with images
 - Pull-to-refresh functionality
@@ -39,6 +43,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - Loading states
 
 #### 4. ✅ State Management (15 marks)
+
 - Redux Toolkit for global state management
 - Separate slices for:
   - Authentication (authSlice)
@@ -49,6 +54,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - Store configuration
 
 #### 5. ✅ Favourites Feature (Persistence)
+
 - Add/remove items as favourites
 - Heart icon toggle on cards
 - Dedicated Favourites screen
@@ -56,6 +62,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - Clear all favourites option
 
 #### 6. ✅ UI/UX Design & Responsiveness (15 marks)
+
 - Clean and modern design
 - Feather Icons throughout the app
 - Consistent color scheme (Primary: #FF6B6B, Secondary: #4ECDC4)
@@ -65,6 +72,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - SafeAreaView for proper device spacing
 
 #### 7. ✅ Code Quality & Best Practices (20 marks)
+
 - TypeScript for type safety
 - Modular component structure
 - Reusable components (Card, Loading)
@@ -75,6 +83,7 @@ Your Sportify mobile application has been successfully created with **ALL requir
 - Feature-based architecture
 
 #### 8. ✅ BONUS: Dark Mode Toggle (5 marks)
+
 - Switch between light and dark themes
 - Toggle in Profile screen
 - Theme persistence with AsyncStorage
@@ -131,11 +140,13 @@ Sportify/
 ### Running the App
 
 1. **Open Terminal in Project Folder:**
+
    ```bash
    cd Desktop/Sportify
    ```
 
 2. **Start Development Server:**
+
    ```bash
    npm start
    ```
@@ -146,6 +157,7 @@ Sportify/
    - **Web Browser**: Press 'w' in terminal
 
 ### App is Already Running!
+
 The Metro bundler is currently running. You can scan the QR code displayed in the terminal with your phone.
 
 ---
@@ -153,6 +165,7 @@ The Metro bundler is currently running. You can scan the QR code displayed in th
 ## 📸 Next Steps for Submission
 
 ### 1. Test the App
+
 - ✅ Register a new account
 - ✅ Login with credentials
 - ✅ Browse sports and leagues
@@ -162,7 +175,9 @@ The Metro bundler is currently running. You can scan the QR code displayed in th
 - ✅ Verify Index 225024 appears in profile
 
 ### 2. Take Screenshots (7 required)
+
 Take screenshots of:
+
 1. Login Screen
 2. Registration Screen
 3. Home Screen (Sports list)
@@ -172,10 +187,13 @@ Take screenshots of:
 7. Any screen in Dark Mode
 
 ### 3. Record Demo Video (≤2 minutes)
+
 Show the complete flow:
+
 - Register/Login → Browse → Details → Favourites → Dark Mode → Profile → Logout
 
 ### 4. Create GitHub Repository
+
 ```bash
 # On GitHub, create a new repository named: sportify-225024
 # Then in your project:
@@ -185,6 +203,7 @@ git push -u origin main
 ```
 
 ### 5. Prepare Submission ZIP
+
 ```
 Sportify-225024-Submission/
 ├── GitHub-URL.txt
@@ -203,34 +222,37 @@ Sportify-225024-Submission/
 
 ## 📊 Evaluation Criteria Score Estimate
 
-| Criteria | Marks | Your Implementation |
-|----------|-------|-------------------|
-| Authentication & Validation | 15 | ✅ Full Implementation |
-| Navigation Implementation | 10 | ✅ Full Implementation |
-| API Integration & Data Display | 15 | ✅ Full Implementation |
-| State Management | 15 | ✅ Full Implementation |
-| UI/UX Design & Responsiveness | 15 | ✅ Full Implementation |
-| Code Quality & Best Practices | 20 | ✅ Full Implementation |
-| Demo Video | 5 | ⏳ To be recorded |
-| **Bonus Feature (Dark Mode)** | 5 | ✅ **Implemented!** |
-| **TOTAL** | **100** | **95/100 + 5 Bonus** |
+| Criteria                       | Marks   | Your Implementation    |
+| ------------------------------ | ------- | ---------------------- |
+| Authentication & Validation    | 15      | ✅ Full Implementation |
+| Navigation Implementation      | 10      | ✅ Full Implementation |
+| API Integration & Data Display | 15      | ✅ Full Implementation |
+| State Management               | 15      | ✅ Full Implementation |
+| UI/UX Design & Responsiveness  | 15      | ✅ Full Implementation |
+| Code Quality & Best Practices  | 20      | ✅ Full Implementation |
+| Demo Video                     | 5       | ⏳ To be recorded      |
+| **Bonus Feature (Dark Mode)**  | 5       | ✅ **Implemented!**    |
+| **TOTAL**                      | **100** | **95/100 + 5 Bonus**   |
 
 ---
 
 ## 🎯 Key Highlights
 
 1. **Index Number Integration**: Your index 225024 is displayed in:
+
    - Profile screen
    - User ID in authentication
    - App configuration (app.json)
    - Code comments throughout
 
 2. **API Source**: TheSportsDB API
+
    - Free tier, no API key required
    - Fetches real sports and league data
    - Reliable and well-documented
 
 3. **Best Practices**:
+
    - TypeScript for type safety
    - Redux Toolkit (modern Redux)
    - Async/await for API calls
@@ -308,7 +330,7 @@ Bottom Tab Navigator
 ✅ Proper validations  
 ✅ Decoupled, testable code  
 ✅ Best practices & standards  
-✅ **BONUS: Dark mode toggle**  
+✅ **BONUS: Dark mode toggle**
 
 ---
 
@@ -341,6 +363,7 @@ This implementation goes **beyond the requirements**:
 **Submission Deadline**: 23rd November, 2025
 
 You have time to:
+
 - ✅ Test thoroughly
 - ✅ Take screenshots
 - ✅ Record demo video
@@ -351,11 +374,11 @@ You have time to:
 
 ## 🎉 Congratulations!
 
-Your **Sportify** app is complete and fully functional! 
+Your **Sportify** app is complete and fully functional!
 
 All core requirements + bonus feature implemented ✅  
 Clean, professional code ✅  
-Ready for submission ✅  
+Ready for submission ✅
 
 **Good luck with your assignment! 🚀**
 

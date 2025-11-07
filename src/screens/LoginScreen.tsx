@@ -37,15 +37,22 @@ const LoginScreen = ({ navigation }: any) => {
       return;
     }
 
-    // Simulate login (using dummy data)
-    const user = {
-      id: '225024',
-      username: email.split('@')[0],
-      email: email,
-      fullName: 'Sportify User',
-    };
-
     try {
+      // Validate user credentials against registered users
+      const registeredUser = await storageService.validateUser(email, password);
+      
+      if (!registeredUser) {
+        Alert.alert('Login Failed', 'Invalid email or password. Please register first.');
+        return;
+      }
+
+      const user = {
+        id: registeredUser.id || '225024',
+        username: registeredUser.username,
+        email: registeredUser.email,
+        fullName: registeredUser.fullName,
+      };
+
       await storageService.saveUser(user);
       dispatch(loginSuccess(user));
       Alert.alert('Success', 'Logged in successfully!');

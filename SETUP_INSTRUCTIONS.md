@@ -1,12 +1,15 @@
 # Sportify Project Setup & Run Instructions
+
 **Student Index: 225024**
 
 ## ✅ Project Status
+
 The Sportify mobile app has been successfully created with all required features!
 
 ## 📱 What's Implemented
 
 ### Core Features
+
 1. ✅ **User Authentication** - Login & Registration with validation
 2. ✅ **Navigation** - Stack Navigator + Bottom Tab Navigator
 3. ✅ **Home Screen** - Browse sports and leagues from TheSportsDB API
@@ -21,10 +24,12 @@ The Sportify mobile app has been successfully created with all required features
 ### Option 1: Using Expo Go (Recommended for Testing)
 
 1. **Install Expo Go on your phone:**
+
    - Android: Download from Google Play Store
    - iOS: Download from App Store
 
 2. **Start the development server:**
+
    ```bash
    cd Desktop/Sportify
    npm start
@@ -37,6 +42,7 @@ The Sportify mobile app has been successfully created with all required features
 ### Option 2: Using Android Emulator
 
 1. **Start the development server:**
+
    ```bash
    cd Desktop/Sportify
    npm start
@@ -47,6 +53,7 @@ The Sportify mobile app has been successfully created with all required features
 ### Option 3: Using Web Browser
 
 1. **Start the development server:**
+
    ```bash
    cd Desktop/Sportify
    npm start
@@ -57,6 +64,7 @@ The Sportify mobile app has been successfully created with all required features
 ## 📸 Taking Screenshots for Submission
 
 ### Required Screenshots:
+
 1. **Login Screen** - Show the login form
 2. **Registration Screen** - Show the registration form
 3. **Home Screen** - Show sports/leagues list
@@ -66,6 +74,7 @@ The Sportify mobile app has been successfully created with all required features
 7. **Dark Mode** - Show any screen in dark mode
 
 ### How to Take Screenshots:
+
 - **On Phone**: Use your phone's screenshot function
 - **On Emulator**: Use the camera button in the emulator toolbar
 - **Web Browser**: Use browser screenshot tools or print screen
@@ -73,6 +82,7 @@ The Sportify mobile app has been successfully created with all required features
 ## 🎥 Recording Demo Video
 
 ### What to Show in Demo (≤2 minutes):
+
 1. App launch and login/registration (20 seconds)
 2. Browse sports and leagues (20 seconds)
 3. View details of an item (15 seconds)
@@ -83,6 +93,7 @@ The Sportify mobile app has been successfully created with all required features
 8. Logout (10 seconds)
 
 ### Tools for Recording:
+
 - **Phone**: Built-in screen recorder
 - **Windows**: Xbox Game Bar (Win + G)
 - **Mac**: QuickTime Player
@@ -112,6 +123,7 @@ mkdir screenshots
 ### 3. Prepare Submission ZIP
 
 Create a folder structure:
+
 ```
 Sportify-225024/
 ├── GitHub-URL.txt (containing your repository URL)
@@ -162,18 +174,23 @@ To run the project:
 ## 🔧 Troubleshooting
 
 ### Issue: "Cannot find module '@expo/vector-icons'"
+
 **Solution:** This is expected during development. The app will work fine when running.
 
 ### Issue: Package version warning
+
 **Solution:** This warning is non-critical. The app functions correctly.
 
 ### Issue: Metro bundler errors
-**Solution:** 
+
+**Solution:**
+
 ```bash
 npm start -- --reset-cache
 ```
 
 ### Issue: Can't connect on phone
+
 **Solution:** Make sure your phone and computer are on the same WiFi network.
 
 ## 📝 Assignment Checklist
@@ -197,16 +214,16 @@ npm start -- --reset-cache
 
 ## 🎯 Evaluation Criteria Coverage
 
-| Criteria | Marks | Status |
-|----------|-------|--------|
-| Authentication & Validation | 15 | ✅ Complete |
-| Navigation Implementation | 10 | ✅ Complete |
-| API Integration & Data Display | 15 | ✅ Complete |
-| State Management | 15 | ✅ Complete |
-| UI/UX Design & Responsiveness | 15 | ✅ Complete |
-| Code Quality & Best Practices | 20 | ✅ Complete |
-| Demo Video | 5 | ⬜ To be recorded |
-| Bonus Feature (Dark Mode) | 5 | ✅ Complete |
+| Criteria                       | Marks | Status            |
+| ------------------------------ | ----- | ----------------- |
+| Authentication & Validation    | 15    | ✅ Complete       |
+| Navigation Implementation      | 10    | ✅ Complete       |
+| API Integration & Data Display | 15    | ✅ Complete       |
+| State Management               | 15    | ✅ Complete       |
+| UI/UX Design & Responsiveness  | 15    | ✅ Complete       |
+| Code Quality & Best Practices  | 20    | ✅ Complete       |
+| Demo Video                     | 5     | ⬜ To be recorded |
+| Bonus Feature (Dark Mode)      | 5     | ✅ Complete       |
 
 ## 📞 Next Steps
 

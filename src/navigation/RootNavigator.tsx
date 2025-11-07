@@ -43,7 +43,7 @@ const RootNavigator = () => {
 
       // Load theme
       const savedTheme = await storageService.getTheme();
-      dispatch(setTheme(savedTheme));
+      dispatch(setTheme(Boolean(savedTheme)));
     } catch (error) {
       console.error('Error loading stored data:', error);
     }
@@ -52,6 +52,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        key={isAuthenticated ? 'authenticated' : 'unauthenticated'}
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.colors.card,

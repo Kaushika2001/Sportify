@@ -7,6 +7,7 @@ const STORAGE_KEYS = {
   USER: '@sportify_user',
   FAVOURITES: '@sportify_favourites',
   THEME: '@sportify_theme',
+  REGISTERED_USERS: '@sportify_registered_users',
 };
 
 export const storageService = {
@@ -69,13 +70,47 @@ export const storageService = {
   },
 
   // Get theme preference
-  getTheme: async () => {
+  getTheme: async (): Promise<boolean> => {
     try {
       const theme = await AsyncStorage.getItem(STORAGE_KEYS.THEME);
-      return theme ? JSON.parse(theme) : false;
+      if (theme === null) return false;
+      const parsed = JSON.parse(theme);
+      return parsed === true || parsed === 'true';
     } catch (error) {
       console.error('Error getting theme:', error);
       return false;
+    }
+  },
+
+  // Registered users management
+  saveRegisteredUser: async (email: string, password: string, userData: any) => {
+    try {
+      const users = await storageService.getRegisteredUsers();
+      users[email.toLowerCase()] = { password, ...userData };
+      await AsyncStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify(users));
+    } catch (error) {
+      console.error('Error saving registered user:', error);
+    }
+  },
+
+  getRegisteredUsers: async () => {
+    try {
+      const users = await AsyncStorage.getItem(STORAGE_KEYS.REGISTERED_USERS);
+      return users ? JSON.parse(users) : {};
+    } catch (error) {
+      console.error('Error getting registered users:', error);
+      return {};
+    }
+  },
+
+  validateUser: async (email: string, password: string) => {
+    try {
+      const users = await storageService.getRegisteredUsers();
+      const user = users[email.toLowerCase()];
+      return user && user.password === password ? user : null;
+    } catch (error) {
+      console.error('Error validating user:', error);
+      return null;
     }
   },
 };

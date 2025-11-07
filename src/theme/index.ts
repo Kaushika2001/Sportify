@@ -3,14 +3,15 @@
 
 export const lightTheme = {
   colors: {
-    primary: '#FF6B6B',
-    secondary: '#4ECDC4',
+    primary: '#222831',
+    primaryVariant: '#393E46',
+    secondary: '#DFD0B8',
     background: '#FFFFFF',
-    card: '#F7F7F7',
-    text: '#333333',
-    textSecondary: '#666666',
-    border: '#DDDDDD',
-    error: '#FF3B30',
+    card: '#FFFFFF',
+    text: '#222831',
+    textSecondary: '#393E46',
+    border: '#DFD0B8',
+    error: '#B00020',
     success: '#34C759',
     shadow: '#000000',
   },
@@ -35,24 +36,31 @@ export const lightTheme = {
     xl: 24,
     xxl: 32,
   },
+  fonts: {
+    regular: 'Nunito_400Regular',
+    semiBold: 'Nunito_600SemiBold',
+    bold: 'Nunito_700Bold',
+  },
 };
 
 export const darkTheme = {
   colors: {
-    primary: '#FF6B6B',
-    secondary: '#4ECDC4',
+    primary: '#DFD0B8',
+    primaryVariant: '#393E46',
+    secondary: '#222831',
     background: '#121212',
     card: '#1E1E1E',
     text: '#FFFFFF',
-    textSecondary: '#AAAAAA',
-    border: '#333333',
-    error: '#FF453A',
+    textSecondary: '#DFD0B8',
+    border: '#393E46',
+    error: '#B00020',
     success: '#32D74B',
     shadow: '#000000',
   },
   spacing: lightTheme.spacing,
   borderRadius: lightTheme.borderRadius,
   fontSize: lightTheme.fontSize,
+  fonts: lightTheme.fonts,
 };
 
 export type Theme = typeof lightTheme;

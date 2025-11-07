@@ -40,15 +40,26 @@ const RegisterScreen = ({ navigation }: any) => {
       return;
     }
 
-    // Simulate registration (using dummy data)
-    const user = {
-      id: '225024',
-      username: username,
-      email: email,
-      fullName: fullName,
-    };
-
     try {
+      // Check if user already exists
+      const existingUsers = await storageService.getRegisteredUsers();
+      if (existingUsers[email.toLowerCase()]) {
+        Alert.alert('Registration Failed', 'An account with this email already exists. Please login.');
+        return;
+      }
+
+      // Create new user
+      const user = {
+        id: Date.now().toString(),
+        username: username,
+        email: email,
+        fullName: fullName,
+      };
+
+      // Save to registered users list
+      await storageService.saveRegisteredUser(email, password, user);
+      
+      // Save as current user
       await storageService.saveUser(user);
       dispatch(registerSuccess(user));
       Alert.alert('Success', 'Account created successfully!');

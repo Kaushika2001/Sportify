@@ -1,6 +1,7 @@
 # 📋 Submission Checklist - Sportify (Index 225024)
 
 ## ✅ Development Complete
+
 - [x] User Authentication implemented
 - [x] Form validation working
 - [x] Navigation structure complete (Stack + Bottom Tabs)
@@ -16,6 +17,7 @@
 - [x] Code quality verified
 
 ## 📱 Testing Required
+
 - [ ] Test Login functionality
 - [ ] Test Registration functionality
 - [ ] Test form validation (try invalid inputs)
@@ -34,8 +36,9 @@
 - [ ] Test Login again with saved credentials
 
 ## 📸 Screenshots Needed (7 minimum)
+
 - [ ] 1. Login Screen
-- [ ] 2. Registration Screen  
+- [ ] 2. Registration Screen
 - [ ] 3. Home Screen - Sports Tab
 - [ ] 4. Home Screen - Leagues Tab (optional)
 - [ ] 5. Details Screen
@@ -46,6 +49,7 @@
 **Save screenshots in a folder named "screenshots"**
 
 ## 🎥 Demo Video (≤2 minutes)
+
 - [ ] Record screen showing:
   - [ ] App launch
   - [ ] Register/Login (10 sec)
@@ -62,6 +66,7 @@
 **Save as: demo-video.mp4**
 
 ## 🌐 GitHub Repository
+
 - [ ] Create GitHub account (if not already done)
 - [ ] Create new repository named: `sportify-225024`
 - [ ] Set repository to Public
@@ -79,6 +84,7 @@
 ## 📦 Prepare Submission ZIP
 
 ### Create folder structure:
+
 ```
 Sportify-225024-Submission/
 ├── GitHub-URL.txt
@@ -95,6 +101,7 @@ Sportify-225024-Submission/
 ```
 
 ### Checklist:
+
 - [ ] Create main submission folder: `Sportify-225024-Submission`
 - [ ] Create `GitHub-URL.txt` with your repository URL
 - [ ] Create `screenshots` folder
@@ -106,6 +113,7 @@ Sportify-225024-Submission/
 - [ ] Verify ZIP file size is reasonable (should be < 50MB)
 
 ### README.txt Template:
+
 ```
 Sportify - Sports & Lifestyle Mobile App
 ========================================
@@ -152,6 +160,7 @@ Index 225024 is visible in:
 ```
 
 ## ✉️ Final Submission
+
 - [ ] Verify ZIP file contains:
   - [ ] GitHub-URL.txt
   - [ ] screenshots/ folder with all images
@@ -163,6 +172,7 @@ Index 225024 is visible in:
 - [ ] **DEADLINE: 23rd November, 2025**
 
 ## 🎯 Quality Check
+
 - [ ] All screenshots are clear and readable
 - [ ] Demo video is under 2 minutes
 - [ ] Demo video shows all main features
@@ -174,17 +184,17 @@ Index 225024 is visible in:
 
 ## 📊 Score Estimation
 
-| Criteria | Max Marks | Expected Score |
-|----------|-----------|----------------|
-| Authentication & Validation | 15 | 15 ✓ |
-| Navigation Implementation | 10 | 10 ✓ |
-| API Integration & Data Display | 15 | 15 ✓ |
-| State Management | 15 | 15 ✓ |
-| UI/UX Design & Responsiveness | 15 | 15 ✓ |
-| Code Quality & Best Practices | 20 | 20 ✓ |
-| Demo Video | 5 | 5 (pending) |
-| Bonus Feature (Dark Mode) | 5 | 5 ✓ |
-| **TOTAL** | **100** | **100** |
+| Criteria                       | Max Marks | Expected Score |
+| ------------------------------ | --------- | -------------- |
+| Authentication & Validation    | 15        | 15 ✓           |
+| Navigation Implementation      | 10        | 10 ✓           |
+| API Integration & Data Display | 15        | 15 ✓           |
+| State Management               | 15        | 15 ✓           |
+| UI/UX Design & Responsiveness  | 15        | 15 ✓           |
+| Code Quality & Best Practices  | 20        | 20 ✓           |
+| Demo Video                     | 5         | 5 (pending)    |
+| Bonus Feature (Dark Mode)      | 5         | 5 ✓            |
+| **TOTAL**                      | **100**   | **100**        |
 
 ## 🎉 You're Ready!
 
@@ -199,6 +209,7 @@ Once you complete this checklist, you'll have:
 ---
 
 **Notes:**
+
 - Check each item as you complete it
 - Don't rush - test everything thoroughly
 - Keep a backup of your submission ZIP

@@ -1,7 +1,7 @@
 // Redux slice for theme (Dark Mode)
 // Student Index: 225024
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ThemeState {
   isDarkMode: boolean;
@@ -18,7 +18,7 @@ const themeSlice = createSlice({
     toggleTheme: (state) => {
       state.isDarkMode = !state.isDarkMode;
     },
-    setTheme: (state, action) => {
+    setTheme: (state, action: PayloadAction<boolean>) => {
       state.isDarkMode = action.payload;
     },
   },
