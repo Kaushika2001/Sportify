@@ -90,7 +90,7 @@ const ProfileScreen = () => {
           <View style={styles.settingRow}>
             <Text style={[styles.settingText, { color: theme.colors.text }]}>Dark Mode</Text>
             <Switch
-              value={Boolean(isDarkMode)}
+              value={isDarkMode === true}
               onValueChange={handleToggleTheme}
               trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
               thumbColor="#FFFFFF"

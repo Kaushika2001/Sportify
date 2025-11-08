@@ -75,7 +75,8 @@ export const storageService = {
       const theme = await AsyncStorage.getItem(STORAGE_KEYS.THEME);
       if (theme === null) return false;
       const parsed = JSON.parse(theme);
-      return parsed === true || parsed === 'true';
+      // Strict boolean conversion
+      return parsed === true;
     } catch (error) {
       console.error('Error getting theme:', error);
       return false;

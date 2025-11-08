@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { loginSuccess } from '../redux/slices/authSlice';
@@ -29,6 +30,13 @@ const RootNavigator = () => {
 
   const loadStoredData = async () => {
     try {
+      // Clear any corrupted theme data first
+      const rawTheme = await AsyncStorage.getItem('@sportify_theme');
+      if (rawTheme && (rawTheme === 'true' || rawTheme === 'false' || rawTheme === '"true"' || rawTheme === '"false"')) {
+        console.log('Clearing corrupted theme data:', rawTheme);
+        await AsyncStorage.removeItem('@sportify_theme');
+      }
+
       // Load user
       const user = await storageService.getUser();
       if (user) {
@@ -43,7 +51,7 @@ const RootNavigator = () => {
 
       // Load theme
       const savedTheme = await storageService.getTheme();
-      dispatch(setTheme(Boolean(savedTheme)));
+      dispatch(setTheme(savedTheme === true));
     } catch (error) {
       console.error('Error loading stored data:', error);
     }

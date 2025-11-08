@@ -42,9 +42,13 @@ const HomeScreen = ({ navigation }: any) => {
         sportsAPI.getAllSports(),
         sportsAPI.getAllLeagues(),
       ]);
-      dispatch(fetchSportsSuccess(sportsData));
-      dispatch(fetchLeaguesSuccess(leaguesData.slice(0, 50))); // Limit to 50 leagues
+      console.log('Sports loaded:', sportsData?.length || 0);
+      console.log('First few sports:', sportsData?.slice(0, 5).map((s: any) => s.strSport));
+      console.log('Leagues loaded:', leaguesData?.length || 0);
+      dispatch(fetchSportsSuccess(sportsData || []));
+      dispatch(fetchLeaguesSuccess(leaguesData?.slice(0, 200) || [])); // Show more leagues
     } catch (error) {
+      console.error('Error loading sports data:', error);
       dispatch(fetchSportsFailure('Failed to load data'));
     }
   };
@@ -77,19 +81,65 @@ const HomeScreen = ({ navigation }: any) => {
     navigation.navigate('Details', { item, type });
   };
 
+  // Map sport names to their image URLs
+  const getSportImageBySportName = (sportName: string): string | undefined => {
+    const sportImageMap: { [key: string]: string } = {
+      'Soccer': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=80',
+      'Basketball': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80',
+      'American Football': 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80',
+      'Ice Hockey': 'https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=80',
+      'Rugby': 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80',
+      'Tennis': 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=800&q=80',
+      'Cricket': 'https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=800&q=80',
+      'Baseball': 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80',
+      'Golf': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=800&q=80',
+      'Motorsport': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80',
+      'Fighting': 'https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=800&q=80',
+      'Handball': 'https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&q=80',
+      'Cycling': 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80',
+      'Volleyball': 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80',
+      'Darts': 'https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=800&q=80',
+      'Snooker': 'https://images.unsplash.com/photo-1534158914592-062992fbe900?w=800&q=80',
+      'Badminton': 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80',
+      'Table Tennis': 'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=800&q=80',
+    };
+    
+    return sportImageMap[sportName];
+  };
+
   const renderItem = ({ item }: { item: Sport | League }) => {
     const isSport = (item as any).idSport !== undefined;
     const title = isSport ? (item as Sport).strSport : (item as League).strLeague;
     const description = isSport 
-      ? (item as Sport).strFormat 
+      ? (item as Sport).strSportDescription || (item as Sport).strFormat
       : `Sport: ${(item as League).strSport}`;
-    const imageUrl = isSport ? (item as Sport).strSportThumb : undefined;
+    
+    // Get image URL for both sports and leagues
+    let imageUrl: string | undefined;
+    let isLogo = false;
+    
+    if (isSport) {
+      imageUrl = (item as Sport).strSportThumb;
+    } else {
+      // For leagues, prioritize league badge/logo, then sport image as fallback
+      const league = item as League;
+      const leagueBadge = league.strBadge || league.strLogo || league.strBanner;
+      
+      if (leagueBadge) {
+        imageUrl = leagueBadge;
+        isLogo = true; // Mark as logo to display with background
+      } else {
+        // If no league badge available, use sport image
+        imageUrl = getSportImageBySportName(league.strSport);
+      }
+    }
 
     return (
       <Card
         title={title}
         description={description}
         imageUrl={imageUrl}
+        isLogo={isLogo}
         onPress={() => handleItemPress(item)}
         showFavourite
         isFavourite={isFavourite(item)}
@@ -103,6 +153,11 @@ const HomeScreen = ({ navigation }: any) => {
   }
 
   const dataToDisplay = activeTab === 'sports' ? sports : leagues;
+  
+  console.log('Current tab:', activeTab);
+  console.log('Sports in state:', sports.length);
+  console.log('Leagues in state:', leagues.length);
+  console.log('Displaying:', dataToDisplay.length, 'items');
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -157,7 +212,10 @@ const HomeScreen = ({ navigation }: any) => {
         <FlatList
           data={dataToDisplay}
           renderItem={renderItem}
-          keyExtractor={(item) => (item as any).idSport || (item as any).idLeague}
+          keyExtractor={(item, index) => {
+            const id = (item as any).idSport || (item as any).idLeague;
+            return id ? id.toString() : `item-${index}`;
+          }}
           contentContainerStyle={styles.listContent}
           refreshControl={
             <RefreshControl

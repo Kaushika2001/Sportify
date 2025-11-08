@@ -28,6 +28,10 @@ export interface League {
   strLeague: string;
   strSport: string;
   strLeagueAlternate?: string;
+  strBadge?: string;
+  strLogo?: string;
+  strBanner?: string;
+  strDescriptionEN?: string;
 }
 
 export interface Team {

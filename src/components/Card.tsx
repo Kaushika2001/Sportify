@@ -1,7 +1,7 @@
 // Reusable Card component
 // Student Index: 225024
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ interface CardProps {
   showFavourite?: boolean;
   isFavourite?: boolean;
   onFavouritePress?: () => void;
+  isLogo?: boolean; // For league badges that should be centered on background
 }
 
 const { width } = Dimensions.get('window');
@@ -28,9 +29,11 @@ const Card: React.FC<CardProps> = ({
   showFavourite = false,
   isFavourite = false,
   onFavouritePress,
+  isLogo = false,
 }) => {
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
+  const [imageError, setImageError] = useState(false);
 
   return (
     <TouchableOpacity
@@ -38,11 +41,35 @@ const Card: React.FC<CardProps> = ({
       onPress={onPress}
       activeOpacity={0.7}
     >
-      {imageUrl ? (
-        <Image source={{ uri: imageUrl }} style={styles.image} resizeMode="cover" />
+      {imageUrl && !imageError ? (
+        isLogo ? (
+          <View style={[styles.logoContainer, { backgroundColor: theme.colors.background }]}>
+            <Image 
+              source={{ 
+                uri: imageUrl,
+                cache: 'force-cache'
+              }} 
+              style={styles.logo} 
+              resizeMode="contain"
+              onError={() => setImageError(true)}
+              fadeDuration={0}
+            />
+          </View>
+        ) : (
+          <Image 
+            source={{ 
+              uri: imageUrl,
+              cache: 'force-cache'
+            }} 
+            style={styles.image} 
+            resizeMode="cover"
+            onError={() => setImageError(true)}
+            fadeDuration={0}
+          />
+        )
       ) : (
-        <View style={[styles.placeholderImage, { backgroundColor: theme.colors.primary }]}>
-          <Feather name="activity" size={40} color="#FFFFFF" />
+        <View style={[styles.placeholderImage, { backgroundColor: theme.colors.secondary }]}>
+          <Feather name="disc" size={60} color={theme.colors.primary} />
         </View>
       )}
       
@@ -91,6 +118,17 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 150,
+  },
+  logoContainer: {
+    width: '100%',
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  logo: {
+    width: '100%',
+    height: '100%',
   },
   placeholderImage: {
     width: '100%',
