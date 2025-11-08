@@ -1,235 +1,219 @@
-# Sportify - Sports & Lifestyle Mobile App
+# Sportify
 
-**Student Index:** 225024  
-**Domain:** Sports & Lifestyle (Last digit 4)
+A modern, cross-platform mobile application for sports enthusiasts to explore sports, leagues, teams, and players with real-time data.
 
-## Overview
+![React Native](https://img.shields.io/badge/React%20Native-0.81.5-blue)
+![Expo](https://img.shields.io/badge/Expo-~54.0.22-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-Sportify is a cross-platform mobile application built with React Native (Expo) that allows users to browse sports, leagues, and teams. Users can save their favorite items and switch between light and dark themes.
+## ✨ Features
 
-## Features
+### 🔐 **Authentication**
+- User registration and login with form validation
+- Secure credential storage
+- Persistent authentication state
+- Login with email or username
 
-✅ **User Authentication**
+### 🏆 **Sports & Leagues**
+- Browse 18+ sports categories
+- Explore leagues organized by sport
+- Expandable sport sections to view associated leagues
+- Status badges (Popular, Active, Upcoming)
+- High-quality sport images
 
-- Login and Registration with form validation
-- Persistent authentication state using AsyncStorage
-- User profile display
+### 📊 **Detailed Information**
+- **Info Tab**: Comprehensive details about sports and leagues
+- **Matches Tab**: View upcoming and recent matches with live scores
+- **Teams Tab**: Browse teams with badges and information
+- **Players Tab**: Explore player profiles with photos
 
-✅ **Navigation**
-
-- Stack Navigator for authentication flow
-- Bottom Tab Navigator for main app sections
-- Smooth navigation between screens
-
-✅ **Home Screen**
-
-- Browse all sports from TheSportsDB API
-- Browse leagues by sport
-- Card-based UI with images
-- Pull-to-refresh functionality
-- Tab switching between Sports and Leagues
-
-✅ **Details Screen**
-
-- Detailed information for each item
-- Add/Remove from favourites
-- Dynamic content based on item type
-
-✅ **Favourites**
-
-- Mark items as favourites
-- Persistent storage with AsyncStorage
+### ⭐ **Favourites Management**
+- Mark sports and leagues as favourites
+- Persistent favourites storage
 - Dedicated favourites screen
-- Easy removal of favourites
+- Quick add/remove with heart icon
+- Bulk clear option
 
-✅ **State Management**
-
-- Redux Toolkit for global state
-- Separate slices for auth, sports, favourites, and theme
-
-✅ **Dark Mode (Bonus Feature)**
-
+### 🎨 **Dark Mode**
 - Toggle between light and dark themes
-- Theme persistence
-- Consistent theming across all screens
+- Persistent theme preference
+- Smooth theme transitions
+- Consistent styling across all screens
 
-✅ **UI/UX**
-
-- Clean and responsive design
-- Feather Icons throughout the app
-- Consistent color scheme
+### 📱 **Modern UI/UX**
+- Clean, card-based design
+- Responsive layout for all screen sizes
+- Pull-to-refresh functionality
+- Loading states and error handling
 - Smooth animations and transitions
+- Custom fonts (Nunito)
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Framework:** React Native (Expo)
-- **Language:** TypeScript
-- **Navigation:** React Navigation (Stack & Bottom Tabs)
-- **State Management:** Redux Toolkit
-- **Data Persistence:** AsyncStorage
-- **API:** TheSportsDB (https://www.thesportsdb.com/api.php)
-- **Icons:** Feather Icons (@expo/vector-icons)
-- **HTTP Client:** Axios
+- **Framework**: React Native (Expo)
+- **Language**: TypeScript
+- **Navigation**: React Navigation (Stack & Bottom Tabs)
+- **State Management**: Redux Toolkit
+- **Data Persistence**: AsyncStorage
+- **API**: TheSportsDB
+- **Icons**: Feather Icons
+- **HTTP Client**: Axios
+- **Fonts**: Nunito
 
-## Project Structure
+## 📦 Installation
+
+### Prerequisites
+- Node.js (v14+)
+- npm or yarn
+- Expo Go app (for mobile testing)
+
+### Setup
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Kaushika2001/Sportify.git
+cd Sportify
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Start the development server**
+```bash
+npm start
+```
+
+4. **Run the app**
+   - Scan QR code with Expo Go (Android/iOS)
+   - Press `w` for web browser
+   - Press `a` for Android emulator
+   - Press `i` for iOS simulator
+
+## 📁 Project Structure
 
 ```
 Sportify/
 ├── src/
-│   ├── components/
+│   ├── components/          # Reusable components
 │   │   ├── Card.tsx
 │   │   └── Loading.tsx
-│   ├── navigation/
+│   ├── navigation/          # Navigation configuration
 │   │   ├── AuthNavigator.tsx
 │   │   ├── BottomTabNavigator.tsx
 │   │   └── RootNavigator.tsx
-│   ├── redux/
+│   ├── redux/              # State management
 │   │   ├── slices/
 │   │   │   ├── authSlice.ts
 │   │   │   ├── sportsSlice.ts
 │   │   │   ├── favouritesSlice.ts
 │   │   │   └── themeSlice.ts
 │   │   └── store.ts
-│   ├── screens/
+│   ├── screens/            # App screens
 │   │   ├── LoginScreen.tsx
 │   │   ├── RegisterScreen.tsx
 │   │   ├── HomeScreen.tsx
 │   │   ├── DetailsScreen.tsx
 │   │   ├── FavouritesScreen.tsx
 │   │   └── ProfileScreen.tsx
-│   ├── services/
+│   ├── services/           # API services
 │   │   └── sportsAPI.ts
-│   ├── theme/
+│   ├── theme/              # Theme configuration
 │   │   └── index.ts
-│   ├── types/
+│   ├── types/              # TypeScript types
 │   │   └── index.ts
-│   └── utils/
+│   └── utils/              # Utility functions
 │       ├── storage.ts
 │       └── validation.ts
+├── assets/                 # Images and assets
 ├── App.tsx
-├── package.json
-└── README.md
+├── index.ts
+└── package.json
 ```
 
-## Installation & Setup
+## 🎯 Usage
 
-### Prerequisites
+### Getting Started
 
-- Node.js (v14 or higher)
-- npm or yarn
-- Expo CLI (`npm install -g expo-cli`)
-- Expo Go app on your mobile device (for testing)
+1. **Register**: Create an account with your details
+2. **Login**: Sign in using email or username
+3. **Browse**: Explore sports and leagues
+4. **Favourites**: Save your favourite sports/leagues
+5. **Details**: View matches, teams, and players
+6. **Profile**: Manage settings and toggle dark mode
 
-### Steps
+### Navigation
 
-1. **Clone or extract the project**
+- **Home**: Browse sports and leagues
+- **Favourites**: Quick access to saved items
+- **Profile**: Account settings and preferences
 
-   ```bash
-   cd Sportify
-   ```
+## 🎨 Color Scheme
 
-2. **Install dependencies**
+**Light Mode**
+- Primary: `#222831` (Dark Charcoal)
+- Secondary: `#DFD0B8` (Warm Beige)
+- Background: `#FFFFFF` (White)
 
-   ```bash
-   npm install
-   ```
+**Dark Mode**
+- Primary: `#DFD0B8` (Warm Beige)
+- Secondary: `#222831` (Dark Charcoal)
+- Background: `#1A1A1A` (Dark Gray)
 
-3. **Start the development server**
+**Status Colors**
+- Popular: `#2196F3` (Blue)
+- Active: `#4CAF50` (Green)
+- Upcoming: `#FF9800` (Orange)
 
-   ```bash
-   npm start
-   ```
+## 🔌 API Integration
 
-   or
+Using [TheSportsDB API](https://www.thesportsdb.com/)
 
-   ```bash
-   npx expo start
-   ```
+**Endpoints:**
+- `GET /all_sports.php` - Fetch all sports
+- `GET /all_leagues.php` - Fetch all leagues
+- `GET /eventsnext.php?id={id}` - Get upcoming matches
+- `GET /eventslast.php?id={id}` - Get recent matches
+- `GET /lookup_all_players.php?id={id}` - Get team players
+- `GET /searchplayers.php?p={name}` - Search players
 
-4. **Run on your device**
-   - Scan the QR code with Expo Go app (Android) or Camera app (iOS)
-   - Or press `a` for Android emulator or `i` for iOS simulator
+## 📝 Scripts
 
-## Usage
+```bash
+npm start          # Start Expo dev server
+npm run android    # Run on Android
+npm run ios        # Run on iOS
+npm run web        # Run in browser
+```
 
-1. **Register/Login**
+## 🤝 Contributing
 
-   - Create a new account or login with existing credentials
-   - Form validation ensures proper input
+Contributions, issues, and feature requests are welcome!
 
-2. **Browse Sports & Leagues**
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-   - Switch between Sports and Leagues tabs
-   - Tap on any item to view details
-   - Add items to favourites
+## 📄 License
 
-3. **View Details**
+This project is licensed under the MIT License.
 
-   - See detailed information about sports, leagues, or teams
-   - Toggle favourite status
+## 🙏 Acknowledgments
 
-4. **Manage Favourites**
+- [TheSportsDB](https://www.thesportsdb.com/) - Sports data API
+- [Expo](https://expo.dev/) - Development platform
+- [React Navigation](https://reactnavigation.org/) - Navigation library
+- [Redux Toolkit](https://redux-toolkit.js.org/) - State management
+- [Unsplash](https://unsplash.com/) - Sports imagery
 
-   - Access favourites from the bottom tab
-   - Remove items by tapping the heart icon
+## 📧 Contact
 
-5. **Profile & Settings**
-   - View user information (Index: 225024)
-   - Toggle Dark Mode
-   - Clear all favourites
-   - Logout
+GitHub: [@Kaushika2001](https://github.com/Kaushika2001)
 
-## API Integration
+---
 
-The app uses **TheSportsDB API** (Free tier):
-
-- **All Sports:** `https://www.thesportsdb.com/api/v1/json/3/all_sports.php`
-- **All Leagues:** `https://www.thesportsdb.com/api/v1/json/3/all_leagues.php`
-- **Search Teams:** `https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={teamName}`
-
-## Best Practices Implemented
-
-✅ TypeScript for type safety  
-✅ Redux Toolkit for state management  
-✅ Component reusability (Card, Loading)  
-✅ Proper folder structure  
-✅ Form validation with custom validators  
-✅ Persistent storage for auth, favourites, and theme  
-✅ Error handling for API calls  
-✅ Responsive design  
-✅ Clean and maintainable code  
-✅ Consistent coding standards
-
-## Screenshots
-
-Please refer to the `screenshots/` folder for app screenshots showing:
-
-- Login Screen
-- Registration Screen
-- Home Screen (Sports & Leagues)
-- Details Screen
-- Favourites Screen
-- Profile Screen
-- Dark Mode
-
-## Demo Video
-
-A demo video (≤2 minutes) is included showing the complete app flow from registration to browsing and managing favourites.
-
-## Known Issues / Future Enhancements
-
-- Add search functionality
-- Implement team details and player information
-- Add match schedules and scores
-- Offline mode with cached data
-- Push notifications for favourite teams
-
-## Author
-
-**Student Index:** 225024  
-**Course:** IN3210 Mobile Applications Development  
-**Assignment:** Cross-Platform Mobile Development with React Native
-
-## License
-
-This project is created for educational purposes as part of the IN3210 course assignment.
+⭐ Star this repo if you find it helpful!

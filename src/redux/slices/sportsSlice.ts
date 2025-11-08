@@ -1,5 +1,4 @@
 // Redux slice for sports data
-// Student Index: 225024
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SportsState, Sport, League, Team } from '../../types';

@@ -23,6 +23,7 @@ import { Sport, League } from '../types';
 const HomeScreen = ({ navigation }: any) => {
   const [activeTab, setActiveTab] = useState<'sports' | 'leagues'>('sports');
   const [refreshing, setRefreshing] = useState(false);
+  const [expandedSports, setExpandedSports] = useState<Set<string>>(new Set());
 
   const dispatch = useDispatch();
   const { sports, leagues, isLoading, error } = useSelector((state: RootState) => state.sports);
@@ -80,6 +81,20 @@ const HomeScreen = ({ navigation }: any) => {
     navigation.navigate('Details', { item, type });
   };
 
+  const toggleSportExpansion = (sportName: string) => {
+    const newExpanded = new Set(expandedSports);
+    if (newExpanded.has(sportName)) {
+      newExpanded.delete(sportName);
+    } else {
+      newExpanded.add(sportName);
+    }
+    setExpandedSports(newExpanded);
+  };
+
+  const getLeaguesForSport = (sportName: string): League[] => {
+    return leagues.filter((league: League) => league.strSport === sportName);
+  };
+
   // Map sport names to their image URLs
   const getSportImageBySportName = (sportName: string): string | undefined => {
     const sportImageMap: { [key: string]: string } = {
@@ -104,6 +119,103 @@ const HomeScreen = ({ navigation }: any) => {
     };
     
     return sportImageMap[sportName];
+  };
+
+  const renderSportWithLeagues = ({ item }: { item: Sport }) => {
+    const sport = item;
+    const sportLeagues = getLeaguesForSport(sport.strSport);
+    const isExpanded = expandedSports.has(sport.strSport);
+    const imageUrl = sport.strSportThumb;
+    const description = sport.strSportDescription || sport.strFormat;
+
+    return (
+      <View>
+        {/* Sport Card */}
+        <TouchableOpacity
+          style={[styles.sportCard, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
+          onPress={() => toggleSportExpansion(sport.strSport)}
+          activeOpacity={0.7}
+        >
+          <Card
+            title={sport.strSport}
+            description={`${description}${sportLeagues.length > 0 ? ` • ${sportLeagues.length} leagues` : ''}`}
+            imageUrl={imageUrl}
+            onPress={() => toggleSportExpansion(sport.strSport)}
+            showFavourite
+            isFavourite={isFavourite(sport)}
+            onFavouritePress={() => handleFavourite(sport)}
+          />
+          {sportLeagues.length > 0 && (
+            <View style={styles.expandIndicator}>
+              <Text style={[styles.expandText, { color: theme.colors.primary }]}>
+                {isExpanded ? '▼ Hide Leagues' : '▶ Show Leagues'}
+              </Text>
+            </View>
+          )}
+        </TouchableOpacity>
+
+        {/* Leagues under sport */}
+        {isExpanded && sportLeagues.length > 0 && (
+          <View style={styles.leaguesContainer}>
+            <Text style={[styles.leaguesHeader, { color: theme.colors.text }]}>
+              {sport.strSport} Leagues
+            </Text>
+            {sportLeagues.map((league: League) => {
+              const leagueBadge = league.strBadge || league.strLogo || league.strBanner;
+              const leagueImageUrl = leagueBadge || getSportImageBySportName(league.strSport);
+              const isLogo = !!leagueBadge;
+              
+              // Create description
+              let leagueDescription: string;
+              if (league.strDescriptionEN) {
+                leagueDescription = league.strDescriptionEN;
+              } else {
+                const leagueName = league.strLeague;
+                if (leagueName.toLowerCase().includes('premier')) {
+                  leagueDescription = `Top-tier professional league with elite teams`;
+                } else if (leagueName.toLowerCase().includes('championship')) {
+                  leagueDescription = `Second-tier competition featuring competitive teams`;
+                } else if (leagueName.toLowerCase().includes('world cup') || leagueName.toLowerCase().includes('champions')) {
+                  leagueDescription = `International competition featuring the world's best teams`;
+                } else {
+                  leagueDescription = league.strLeagueAlternate || 'Professional league';
+                }
+              }
+
+              // Get status
+              const getLeagueStatus = (): 'Active' | 'Upcoming' | 'Popular' | undefined => {
+                const leagueName = league.strLeague.toLowerCase();
+                const popularLeagues = ['premier league', 'nba', 'nfl', 'la liga', 'champions league', 'serie a', 'bundesliga', 'mlb', 'nhl'];
+                if (popularLeagues.some(name => leagueName.includes(name))) {
+                  return 'Popular';
+                }
+                const upcomingKeywords = ['championship', 'league two', 'league one', 'segunda', 'division 2'];
+                if (upcomingKeywords.some(keyword => leagueName.includes(keyword))) {
+                  return 'Upcoming';
+                }
+                return 'Active';
+              };
+
+              return (
+                <View key={league.idLeague} style={styles.leagueItem}>
+                  <Card
+                    title={league.strLeague}
+                    description={leagueDescription}
+                    imageUrl={leagueImageUrl}
+                    isLogo={isLogo}
+                    status={getLeagueStatus()}
+                    onPress={() => handleItemPress(league)}
+                    showFavourite
+                    isFavourite={isFavourite(league)}
+                    onFavouritePress={() => handleFavourite(league)}
+                  />
+                </View>
+              );
+            })}
+          </View>
+        )}
+      </View>
+    );
   };
 
   const renderItem = ({ item }: { item: Sport | League }) => {
@@ -258,8 +370,8 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
       ) : (
         <FlatList
-          data={dataToDisplay}
-          renderItem={renderItem}
+          data={dataToDisplay as any}
+          renderItem={activeTab === 'sports' ? renderSportWithLeagues : renderItem}
           keyExtractor={(item, index) => {
             const id = (item as any).idSport || (item as any).idLeague;
             return id ? id.toString() : `item-${index}`;
@@ -338,6 +450,38 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
+  },
+  sportCard: {
+    marginBottom: 0,
+  },
+  expandIndicator: {
+    position: 'absolute',
+    bottom: 12,
+    right: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  expandText: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  leaguesContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.02)',
+    paddingTop: 8,
+    paddingBottom: 16,
+    marginBottom: 16,
+  },
+  leaguesHeader: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: 16,
+    marginBottom: 8,
+    marginTop: 8,
+  },
+  leagueItem: {
+    marginTop: 0,
   },
 });
 

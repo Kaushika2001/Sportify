@@ -1,5 +1,4 @@
 // Loading component
-// Student Index: 225024
 
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';

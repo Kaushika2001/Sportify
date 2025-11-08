@@ -1,5 +1,4 @@
 // Redux slice for favourites
-// Student Index: 225024
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FavouritesState, Sport, League, Team } from '../../types';

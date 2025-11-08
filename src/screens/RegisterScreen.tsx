@@ -76,7 +76,7 @@ const RegisterScreen = ({ navigation }: any) => {
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.text }]}>Create Account</Text>
           <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-            Join Sportify - Index: 225024
+            Join Sportify
           </Text>
         </View>
 

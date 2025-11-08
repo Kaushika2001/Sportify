@@ -78,7 +78,7 @@ const ProfileScreen = () => {
               {user?.fullName || 'User'}
             </Text>
             <Text style={[styles.username, { color: theme.colors.textSecondary }]}>
-              @{user?.username || 'username'}
+              @{user?.username || 'user'}
             </Text>
             <Text style={[styles.email, { color: theme.colors.textSecondary }]}>
               {user?.email || 'email@example.com'}
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 8,
   },
   userInfo: {
     alignItems: 'center',

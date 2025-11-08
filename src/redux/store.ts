@@ -1,5 +1,4 @@
 // Redux store configuration
-// Student Index: 225024
 
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';

@@ -1,5 +1,4 @@
 // Bottom Tab Navigator
-// Student Index: 225024
 
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

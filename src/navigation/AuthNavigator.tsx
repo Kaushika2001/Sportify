@@ -1,5 +1,4 @@
 // Auth Stack Navigator
-// Student Index: 225024
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';

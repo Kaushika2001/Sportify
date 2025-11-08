@@ -1,5 +1,4 @@
 // Favourites Screen
-// Student Index: 225024
 
 import React, { useEffect } from 'react';
 import {

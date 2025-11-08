@@ -20,7 +20,7 @@ import { storageService } from '../utils/storage';
 import { lightTheme, darkTheme } from '../theme';
 
 const LoginScreen = ({ navigation }: any) => {
-  const [email, setEmail] = useState('');
+  const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<any>({});
   const [loginError, setLoginError] = useState('');
@@ -34,32 +34,51 @@ const LoginScreen = ({ navigation }: any) => {
     setErrors({});
     setLoginError('');
     
-    const validationErrors = validateLoginForm(email, password);
+    // Basic validation
+    if (!emailOrUsername.trim()) {
+      setLoginError('Please enter your email or username');
+      return;
+    }
     
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    if (!password.trim()) {
+      setLoginError('Please enter your password');
       return;
     }
 
     try {
-      // Check if email exists
+      // Get all registered users
       const registeredUsers = await storageService.getRegisteredUsers();
       console.log('Registered users:', registeredUsers);
-      console.log('Checking email:', email.toLowerCase());
+      console.log('Checking login with:', emailOrUsername);
       
-      const userExists = registeredUsers[email.toLowerCase()];
+      // Find user by email or username
+      let foundUser = null;
+      const inputLower = emailOrUsername.toLowerCase().trim();
       
-      if (!userExists) {
+      // Check if input matches email
+      if (registeredUsers[inputLower]) {
+        foundUser = registeredUsers[inputLower];
+        console.log('Found by email');
+      } else {
+        // Search by username
+        for (const email in registeredUsers) {
+          if (registeredUsers[email].username?.toLowerCase() === inputLower) {
+            foundUser = registeredUsers[email];
+            console.log('Found by username');
+            break;
+          }
+        }
+      }
+      
+      if (!foundUser) {
         console.log('User does not exist');
-        setLoginError('No account found with this email address. Please register first.');
+        setLoginError('No account found with this email or username. Please register first.');
         return;
       }
 
       // Validate password
       console.log('User exists, validating password');
-      const registeredUser = await storageService.validateUser(email, password);
-      
-      if (!registeredUser) {
+      if (foundUser.password !== password) {
         console.log('Password incorrect');
         setLoginError('Incorrect password. Please try again.');
         return;
@@ -67,10 +86,10 @@ const LoginScreen = ({ navigation }: any) => {
 
       console.log('Login successful');
       const user = {
-        id: registeredUser.id || 'user-' + Date.now(),
-        username: registeredUser.username,
-        email: registeredUser.email,
-        fullName: registeredUser.fullName,
+        id: foundUser.id || 'user-' + Date.now(),
+        username: foundUser.username,
+        email: foundUser.email,
+        fullName: foundUser.fullName,
       };
 
       await storageService.saveUser(user);
@@ -99,27 +118,25 @@ const LoginScreen = ({ navigation }: any) => {
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={[styles.label, { color: theme.colors.text }]}>Email</Text>
+            <Text style={[styles.label, { color: theme.colors.text }]}>Email or Username</Text>
             <TextInput
               style={[
                 styles.input,
                 {
                   backgroundColor: theme.colors.card,
                   color: theme.colors.text,
-                  borderColor: errors.email ? theme.colors.error : theme.colors.border,
+                  borderColor: theme.colors.border,
                 },
               ]}
-              placeholder="Enter your email"
+              placeholder="Enter your email or username"
               placeholderTextColor={theme.colors.textSecondary}
-              value={email}
+              value={emailOrUsername}
               onChangeText={(text) => {
-                setEmail(text);
-                setErrors({ ...errors, email: undefined });
+                setEmailOrUsername(text);
+                setLoginError('');
               }}
-              keyboardType="email-address"
               autoCapitalize="none"
             />
-            {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
           </View>
 
           <View style={styles.inputContainer}>
@@ -130,7 +147,7 @@ const LoginScreen = ({ navigation }: any) => {
                 {
                   backgroundColor: theme.colors.card,
                   color: theme.colors.text,
-                  borderColor: errors.password ? theme.colors.error : theme.colors.border,
+                  borderColor: theme.colors.border,
                 },
               ]}
               placeholder="Enter your password"
@@ -138,11 +155,10 @@ const LoginScreen = ({ navigation }: any) => {
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
-                setErrors({ ...errors, password: undefined });
+                setLoginError('');
               }}
               secureTextEntry
             />
-            {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
           </View>
 
           <TouchableOpacity
