@@ -1,5 +1,4 @@
 // Login Screen
-// Student Index: 225024
 
 import React, { useState } from 'react';
 import {
@@ -24,12 +23,17 @@ const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<any>({});
+  const [loginError, setLoginError] = useState('');
 
   const dispatch = useDispatch();
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const handleLogin = async () => {
+    // Clear any previous errors
+    setErrors({});
+    setLoginError('');
+    
     const validationErrors = validateLoginForm(email, password);
     
     if (Object.keys(validationErrors).length > 0) {
@@ -38,16 +42,32 @@ const LoginScreen = ({ navigation }: any) => {
     }
 
     try {
-      // Validate user credentials against registered users
-      const registeredUser = await storageService.validateUser(email, password);
+      // Check if email exists
+      const registeredUsers = await storageService.getRegisteredUsers();
+      console.log('Registered users:', registeredUsers);
+      console.log('Checking email:', email.toLowerCase());
       
-      if (!registeredUser) {
-        Alert.alert('Login Failed', 'Invalid email or password. Please register first.');
+      const userExists = registeredUsers[email.toLowerCase()];
+      
+      if (!userExists) {
+        console.log('User does not exist');
+        setLoginError('No account found with this email address. Please register first.');
         return;
       }
 
+      // Validate password
+      console.log('User exists, validating password');
+      const registeredUser = await storageService.validateUser(email, password);
+      
+      if (!registeredUser) {
+        console.log('Password incorrect');
+        setLoginError('Incorrect password. Please try again.');
+        return;
+      }
+
+      console.log('Login successful');
       const user = {
-        id: registeredUser.id || '225024',
+        id: registeredUser.id || 'user-' + Date.now(),
         username: registeredUser.username,
         email: registeredUser.email,
         fullName: registeredUser.fullName,
@@ -55,9 +75,9 @@ const LoginScreen = ({ navigation }: any) => {
 
       await storageService.saveUser(user);
       dispatch(loginSuccess(user));
-      Alert.alert('Success', 'Logged in successfully!');
     } catch (error) {
-      Alert.alert('Error', 'Failed to login. Please try again.');
+      console.error('Login error:', error);
+      setLoginError('Failed to login. Please try again.');
     }
   };
 
@@ -69,10 +89,13 @@ const LoginScreen = ({ navigation }: any) => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.text }]}>Welcome to Sportify</Text>
-          <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-            Student Index: 225024
-          </Text>
         </View>
+
+        {loginError ? (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorMessage}>{loginError}</Text>
+          </View>
+        ) : null}
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
@@ -163,6 +186,19 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
+  },
+  errorContainer: {
+    backgroundColor: '#FFE5E5',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+    borderLeftWidth: 4,
+    borderLeftColor: '#FF3B30',
+  },
+  errorMessage: {
+    color: '#D32F2F',
+    fontSize: 14,
+    fontWeight: '600',
   },
   form: {
     width: '100%',

@@ -1,5 +1,4 @@
 // Form validation utilities
-// Student Index: 225024
 
 export const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

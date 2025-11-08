@@ -1,5 +1,4 @@
 // Redux slice for authentication
-// Student Index: 225024
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from '../../types';

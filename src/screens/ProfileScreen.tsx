@@ -1,5 +1,4 @@
 // Profile Screen with Dark Mode toggle
-// Student Index: 225024
 
 import React from 'react';
 import {
@@ -43,22 +42,25 @@ const ProfileScreen = () => {
     }
   };
 
-  const handleClearFavourites = () => {
-    Alert.alert(
-      'Clear Favourites',
-      'Are you sure you want to remove all favourites?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear',
-          style: 'destructive',
-          onPress: async () => {
-            dispatch(clearFavourites());
-            await storageService.saveFavourites([]);
-          },
-        },
-      ]
-    );
+  const handleClearFavourites = async () => {
+    console.log('Clear favourites button pressed');
+    console.log('Current favourites count:', favouritesCount);
+    
+    if (favouritesCount === 0) {
+      Alert.alert('No Favourites', 'You don\'t have any favourites to clear.');
+      return;
+    }
+    
+    try {
+      console.log('Clearing favourites...');
+      dispatch(clearFavourites());
+      await storageService.saveFavourites([]);
+      console.log('Favourites cleared successfully');
+      Alert.alert('Success', 'All favourites have been cleared.');
+    } catch (error) {
+      console.error('Error clearing favourites:', error);
+      Alert.alert('Error', 'Failed to clear favourites.');
+    }
   };
 
   const handleToggleTheme = async () => {

@@ -1,5 +1,4 @@
 // Main App Component
-// Student Index: 225024
 
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';

@@ -1,5 +1,4 @@
 // Register Screen
-// Student Index: 225024
 
 import React, { useState } from 'react';
 import {

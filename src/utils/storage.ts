@@ -1,5 +1,4 @@
 // Storage utility using AsyncStorage
-// Student Index: 225024
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

@@ -1,5 +1,4 @@
 // Theme configuration for Sportify app
-// Student Index: 225024
 
 export const lightTheme = {
   colors: {

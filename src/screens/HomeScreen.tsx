@@ -1,5 +1,4 @@
 // Home Screen - Display sports data
-// Student Index: 225024
 
 import React, { useEffect, useState } from 'react';
 import {
@@ -110,9 +109,34 @@ const HomeScreen = ({ navigation }: any) => {
   const renderItem = ({ item }: { item: Sport | League }) => {
     const isSport = (item as any).idSport !== undefined;
     const title = isSport ? (item as Sport).strSport : (item as League).strLeague;
-    const description = isSport 
-      ? (item as Sport).strSportDescription || (item as Sport).strFormat
-      : `Sport: ${(item as League).strSport}`;
+    
+    // Create better descriptions
+    let description: string;
+    if (isSport) {
+      description = (item as Sport).strSportDescription || (item as Sport).strFormat;
+    } else {
+      const league = item as League;
+      // Use league description if available, otherwise create one
+      if (league.strDescriptionEN) {
+        description = league.strDescriptionEN;
+      } else {
+        // Create a descriptive text based on league name and sport
+        const sport = league.strSport;
+        const leagueName = league.strLeague;
+        
+        if (leagueName.toLowerCase().includes('premier')) {
+          description = `Top-tier professional ${sport} league with elite teams competing for the championship`;
+        } else if (leagueName.toLowerCase().includes('championship')) {
+          description = `Second-tier ${sport} competition featuring competitive teams`;
+        } else if (leagueName.toLowerCase().includes('world cup') || leagueName.toLowerCase().includes('champions')) {
+          description = `International ${sport} competition featuring the world's best teams`;
+        } else if (leagueName.toLowerCase().includes('division') || leagueName.toLowerCase().includes('league')) {
+          description = `Professional ${sport} league with teams competing for glory`;
+        } else {
+          description = `${sport} competition - ${league.strLeagueAlternate || 'Professional league'}`;
+        }
+      }
+    }
     
     // Get image URL for both sports and leagues
     let imageUrl: string | undefined;
@@ -134,12 +158,36 @@ const HomeScreen = ({ navigation }: any) => {
       }
     }
 
+    // Assign status for leagues
+    const getStatus = (): 'Active' | 'Upcoming' | 'Popular' | undefined => {
+      if (isSport) return undefined; // No status for sports
+      
+      const league = item as League;
+      const leagueName = league.strLeague.toLowerCase();
+      
+      // Popular leagues
+      const popularLeagues = ['premier league', 'nba', 'nfl', 'la liga', 'champions league', 'serie a', 'bundesliga', 'mlb', 'nhl'];
+      if (popularLeagues.some(name => leagueName.includes(name))) {
+        return 'Popular';
+      }
+      
+      // Upcoming leagues (typically lower divisions or smaller leagues)
+      const upcomingKeywords = ['championship', 'league two', 'league one', 'segunda', 'division 2'];
+      if (upcomingKeywords.some(keyword => leagueName.includes(keyword))) {
+        return 'Upcoming';
+      }
+      
+      // Default to Active for other leagues
+      return 'Active';
+    };
+
     return (
       <Card
         title={title}
         description={description}
         imageUrl={imageUrl}
         isLogo={isLogo}
+        status={getStatus()}
         onPress={() => handleItemPress(item)}
         showFavourite
         isFavourite={isFavourite(item)}

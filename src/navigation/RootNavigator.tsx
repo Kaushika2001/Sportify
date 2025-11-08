@@ -1,5 +1,4 @@
 // Root Navigator
-// Student Index: 225024
 
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';

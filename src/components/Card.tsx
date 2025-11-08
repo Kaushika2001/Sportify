@@ -1,5 +1,4 @@
 // Reusable Card component
-// Student Index: 225024
 
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
@@ -17,6 +16,7 @@ interface CardProps {
   isFavourite?: boolean;
   onFavouritePress?: () => void;
   isLogo?: boolean; // For league badges that should be centered on background
+  status?: 'Active' | 'Upcoming' | 'Popular'; // Status badge
 }
 
 const { width } = Dimensions.get('window');
@@ -30,10 +30,25 @@ const Card: React.FC<CardProps> = ({
   isFavourite = false,
   onFavouritePress,
   isLogo = false,
+  status,
 }) => {
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
   const [imageError, setImageError] = useState(false);
+
+  // Get status badge color
+  const getStatusColor = () => {
+    switch (status) {
+      case 'Active':
+        return '#4CAF50'; // Green
+      case 'Upcoming':
+        return '#FF9800'; // Orange
+      case 'Popular':
+        return '#2196F3'; // Blue
+      default:
+        return theme.colors.primary;
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -70,6 +85,12 @@ const Card: React.FC<CardProps> = ({
       ) : (
         <View style={[styles.placeholderImage, { backgroundColor: theme.colors.secondary }]}>
           <Feather name="disc" size={60} color={theme.colors.primary} />
+        </View>
+      )}
+      
+      {status && (
+        <View style={[styles.statusBadge, { backgroundColor: getStatusColor() }]}>
+          <Text style={styles.statusText}>{status}</Text>
         </View>
       )}
       
@@ -155,6 +176,20 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 20,
+  },
+  statusBadge: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  statusText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+    textTransform: 'uppercase',
   },
 });
 

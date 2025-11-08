@@ -1,5 +1,4 @@
 // API service for TheSportsDB
-// Student Index: 225024
 
 import axios from 'axios';
 
@@ -97,6 +96,50 @@ export const sportsAPI = {
     } catch (error) {
       console.error('Error fetching league details:', error);
       throw error;
+    }
+  },
+
+  // Get next 5 events by league
+  getNextEvents: async (leagueId: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/eventsnextleague.php?id=${leagueId}`);
+      return response.data.events || [];
+    } catch (error) {
+      console.error('Error fetching next events:', error);
+      return [];
+    }
+  },
+
+  // Get last 5 events by league
+  getLastEvents: async (leagueId: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/eventspastleague.php?id=${leagueId}`);
+      return response.data.events || [];
+    } catch (error) {
+      console.error('Error fetching past events:', error);
+      return [];
+    }
+  },
+
+  // Get all players by team
+  getPlayersByTeam: async (teamId: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/lookup_all_players.php?id=${teamId}`);
+      return response.data.player || [];
+    } catch (error) {
+      console.error('Error fetching players:', error);
+      return [];
+    }
+  },
+
+  // Search players by name
+  searchPlayers: async (playerName: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/searchplayers.php?p=${playerName}`);
+      return response.data.player || [];
+    } catch (error) {
+      console.error('Error searching players:', error);
+      return [];
     }
   },
 };

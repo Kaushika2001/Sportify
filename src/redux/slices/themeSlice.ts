@@ -1,5 +1,4 @@
 // Redux slice for theme (Dark Mode)
-// Student Index: 225024
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 

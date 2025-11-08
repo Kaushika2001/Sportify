@@ -1,5 +1,4 @@
 // Type definitions for the Sportify app
-// Student Index: 225024
 
 export interface User {
   id: string;
