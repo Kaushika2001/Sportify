@@ -149,6 +149,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
+  indexText: {
+    fontSize: 14,
+    fontWeight: '700',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
   userInfo: {
     alignItems: 'center',
   },

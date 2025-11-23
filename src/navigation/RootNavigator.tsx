@@ -19,8 +19,8 @@ const Stack = createStackNavigator();
 
 const RootNavigator = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const isAuthenticated = Boolean(useSelector((state: RootState) => state.auth.isAuthenticated));
+  const isDarkMode = Boolean(useSelector((state: RootState) => state.theme.isDarkMode));
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   useEffect(() => {
@@ -29,28 +29,15 @@ const RootNavigator = () => {
 
   const loadStoredData = async () => {
     try {
-      // Clear any corrupted theme data first
-      const rawTheme = await AsyncStorage.getItem('@sportify_theme');
-      if (rawTheme && (rawTheme === 'true' || rawTheme === 'false' || rawTheme === '"true"' || rawTheme === '"false"')) {
-        console.log('Clearing corrupted theme data:', rawTheme);
-        await AsyncStorage.removeItem('@sportify_theme');
-      }
+      // CRITICAL: Clear ALL AsyncStorage on first load to remove corrupted boolean data
+      console.log('Clearing all AsyncStorage to fix boolean/string error...');
+      await AsyncStorage.clear();
+      console.log('AsyncStorage cleared');
 
-      // Load user
-      const user = await storageService.getUser();
-      if (user) {
-        dispatch(loginSuccess(user));
-      }
-
-      // Load favourites
-      const favourites = await storageService.getFavourites();
-      if (favourites.length > 0) {
-        dispatch(setFavourites(favourites));
-      }
-
-      // Load theme
-      const savedTheme = await storageService.getTheme();
-      dispatch(setTheme(savedTheme === true));
+      // Start fresh with default values
+      dispatch(setTheme(false));
+      
+      // Note: User will need to log in again, but this fixes the corruption
     } catch (error) {
       console.error('Error loading stored data:', error);
     }

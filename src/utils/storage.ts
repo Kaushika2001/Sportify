@@ -62,7 +62,8 @@ export const storageService = {
   // Save theme preference
   saveTheme: async (isDarkMode: boolean) => {
     try {
-      await AsyncStorage.setItem(STORAGE_KEYS.THEME, JSON.stringify(isDarkMode));
+      // Store as 0 or 1 to avoid string/boolean confusion
+      await AsyncStorage.setItem(STORAGE_KEYS.THEME, isDarkMode ? '1' : '0');
     } catch (error) {
       console.error('Error saving theme:', error);
     }
@@ -73,9 +74,8 @@ export const storageService = {
     try {
       const theme = await AsyncStorage.getItem(STORAGE_KEYS.THEME);
       if (theme === null) return false;
-      const parsed = JSON.parse(theme);
-      // Strict boolean conversion
-      return parsed === true;
+      // Convert '1' to true, anything else to false
+      return theme === '1';
     } catch (error) {
       console.error('Error getting theme:', error);
       return false;
